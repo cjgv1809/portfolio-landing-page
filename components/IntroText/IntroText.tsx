@@ -8,10 +8,8 @@ const phrase =
   "I'm Carlos Gomes, a skilled Frontend/UI Developer with over 2 and a half years of experience";
 
 function IntroText() {
-  const refs = useRef([]);
-  const body = useRef(null);
-  const container = useRef(null);
-  const refsSpan = useRef<HTMLSpanElement[]>([]);
+  const refs = useRef<HTMLSpanElement[]>([]);
+  const container = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -19,54 +17,46 @@ function IntroText() {
   }, []);
 
   const createAnimation = () => {
+    if (!container.current) return;
+
     gsap.to(refs.current, {
       scrollTrigger: {
         trigger: container.current,
         scrub: true,
-        start: `top 85%`,
-        end: `top 75%`,
+        start: "top 65%",
+        end: "top 95%",
       },
       opacity: 1,
       ease: "none",
-      stagger: 5,
+      stagger: 0.1,
     });
   };
 
   const splitWords = (phrase: string) => {
-    let body: JSX.Element[] = [];
-
-    phrase.split(" ").forEach((word, i) => {
-      const letters = splitLetters(word);
-      body.push(<span key={word + "_" + i}>{letters}</span>);
-    });
-
-    return body;
+    return phrase.split(" ").map((word, i) => (
+      <span key={word + "_" + i}>
+        {splitLetters(word)}
+        &nbsp;
+      </span>
+    ));
   };
 
   const splitLetters = (word: string) => {
-    let letters: JSX.Element[] = [];
-
-    word.split("").forEach((letter: string, i: number) => {
-      letters.push(
-        <span
-          key={letter + "_" + i}
-          ref={(el) => {
-            refsSpan.current.push(el!);
-          }}
-        >
-          {letter}
-        </span>
-      );
-    });
-
-    return letters;
+    return word.split("").map((letter, i) => (
+      <span
+        key={letter + "_" + i}
+        ref={(el) => {
+          if (el) refs.current.push(el);
+        }}
+      >
+        {letter}
+      </span>
+    ));
   };
 
   return (
     <div ref={container} className={styles.main}>
-      <p ref={body} className={styles.body}>
-        {splitWords(phrase)}
-      </p>
+      <p className={styles.body}>{splitWords(phrase)}</p>
       <div className={styles.btnContainer}>
         <RoundedButton backgroundColor="#334BD3">
           <span>Contact me</span>

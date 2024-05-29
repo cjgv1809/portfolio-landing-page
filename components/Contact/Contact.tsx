@@ -78,9 +78,9 @@ function Contact() {
               <h3>Version</h3>
               <p>{date.getFullYear()} © Edition</p>
             </span>
-            <span>
+            {/* <span>
               <p>{date.toLocaleTimeString()} GMT-3</p>
-            </span>
+            </span> */}
           </div>
           <div>
             <span>
