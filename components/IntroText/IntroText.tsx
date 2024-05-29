@@ -8,9 +8,10 @@ const phrase =
   "I'm Carlos Gomes, a skilled Frontend/UI Developer with over 2 and a half years of experience";
 
 function IntroText() {
-  let refs = useRef([]);
+  const refs = useRef([]);
   const body = useRef(null);
   const container = useRef(null);
+  const refsSpan = useRef<HTMLSpanElement[]>([]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -50,7 +51,7 @@ function IntroText() {
         <span
           key={letter + "_" + i}
           ref={(el) => {
-            refs.current.push(el);
+            refsSpan.current.push(el!);
           }}
         >
           {letter}
