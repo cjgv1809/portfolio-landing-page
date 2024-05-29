@@ -91,7 +91,7 @@ function Projects() {
     });
   }, []);
 
-  const moveItems = (x, y) => {
+  const moveItems = (x: number, y: number): void => {
     if (
       xMoveContainer.current &&
       yMoveContainer.current &&
@@ -100,15 +100,45 @@ function Projects() {
       xMoveCursorLabel.current &&
       yMoveCursorLabel.current
     ) {
-      xMoveContainer.current(x);
-      yMoveContainer.current(y);
-      xMoveCursor.current(x);
-      yMoveCursor.current(y);
-      xMoveCursorLabel.current(x);
-      yMoveCursorLabel.current(y);
+      gsap.quickTo(xMoveContainer.current, "left", {
+        x,
+        duration: 0.8,
+        ease: "power3",
+      });
+      gsap.quickTo(yMoveContainer.current, "top", {
+        y,
+        duration: 0.8,
+        ease: "power3",
+      });
+      gsap.quickTo(xMoveCursor.current, "left", {
+        x,
+        duration: 0.5,
+        ease: "power3",
+      });
+      gsap.quickTo(yMoveCursor.current, "top", {
+        y,
+        duration: 0.5,
+        ease: "power3",
+      });
+      gsap.quickTo(xMoveCursorLabel.current, "left", {
+        x,
+        duration: 0.45,
+        ease: "power3",
+      });
+      gsap.quickTo(yMoveCursorLabel.current, "top", {
+        y,
+        duration: 0.45,
+        ease: "power3",
+      });
     }
   };
-  const manageModal = (active, index, x, y) => {
+
+  const manageModal = (
+    active: boolean,
+    index: number,
+    x: number,
+    y: number
+  ): void => {
     moveItems(x, y);
     setModal({ active, index });
   };
