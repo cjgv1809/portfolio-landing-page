@@ -37,7 +37,7 @@ function IntroText() {
 
     phrase.split(" ").forEach((word, i) => {
       const letters = splitLetters(word);
-      body.push(<p key={word + "_" + i}>{letters}</p>);
+      body.push(<span key={word + "_" + i}>{letters}</span>);
     });
 
     return body;

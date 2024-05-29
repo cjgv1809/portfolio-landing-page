@@ -5,8 +5,9 @@ import { useRef } from "react";
 import { useScroll, useSpring } from "framer-motion";
 import { motion } from "framer-motion-3d";
 import { TextureLoader } from "three";
+import dynamic from "next/dynamic";
 
-export default function Earth() {
+function Earth() {
   const scene = useRef(null);
   const { scrollYProgress } = useScroll({
     target: scene,
@@ -34,3 +35,5 @@ export default function Earth() {
     </Canvas>
   );
 }
+
+export default dynamic(() => Promise.resolve(Earth), { ssr: false });
